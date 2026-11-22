@@ -1,0 +1,14 @@
+date,category,amount
+2024-02-01,Food,10
+2024-02-02,Food
+2024-02-03,Food,5,extra
+2024-02-04,,8
+2024-02-05,Books,12abc
+2024-02-06,Books,abc
+2024-02-07,Books,
+2024-02-08,Books, 9
+2024-02-09,Books,nan
+2024-02-10,Books,inf
+
+2024-02-11,Books,15
+2024-02-12,Food,2.5

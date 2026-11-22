@@ -1,3 +1,7 @@
+# Build directories (out-of-source builds: cmake -S . -B build)
+build/
+build-*/
+
 # CMake generated files
 
 CMakeLists.txt.user

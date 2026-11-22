@@ -1,0 +1,3 @@
+# Test data must reach the tests byte-for-byte: never convert line endings
+# (windows_line_endings.csv must keep its \r\n, the .expected files must keep \n).
+**/test/data/** -text

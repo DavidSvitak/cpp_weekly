@@ -1,5 +1,5 @@
-Category,value,count
-Rent,800.00,1
-Entertainment,45.99,1
-Transport,45.50,2
-Food,39.75,3
+Category,count,value
+Rent,1,800.00
+Entertainment,1,45.99
+Transport,2,45.50
+Food,3,39.75

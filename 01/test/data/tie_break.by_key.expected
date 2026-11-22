@@ -1,5 +1,5 @@
-Category,value,count
-Art,20.00,2
-Bar,50.00,1
-Gym,20.00,2
-Zoo,20.00,1
+Category,count,value
+Art,2,20.00
+Bar,1,50.00
+Gym,2,20.00
+Zoo,1,20.00

@@ -41,6 +41,9 @@ if(BUILD_TESTING)
     # Provides catch_discover_tests(), which registers every TEST_CASE with CTest.
     list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
     include(Catch)
+
+    # Provides add_cli_test(), for end-to-end tests that run a program and check its output.
+    include(cmake/CliTest.cmake)
 endif()
 
 add_subdirectory(01)

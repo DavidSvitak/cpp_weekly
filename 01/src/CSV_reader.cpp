@@ -9,6 +9,7 @@
 #include <system_error>
 
 #include "CSV_reader.hpp"
+#include "csv_utils.hpp"
 
 std::time_t parse_timestamp(const std::string& timestamp_str) {
     std::tm tm{};          // zero-initialize: get_time only fills year/month/day
@@ -18,7 +19,6 @@ std::time_t parse_timestamp(const std::string& timestamp_str) {
     return std::mktime(&tm);
 }
 
-// Parses the whole string as a finite number. Rejects "12abc", " 5", "0x10", "", "nan", "inf", ...
 std::optional<double> parse_amount(std::string_view s) {
     double value{};
     const char* end = s.data() + s.size();
@@ -72,8 +72,6 @@ CSV_reader::CSV_reader(const std::string& input_path) : filename(input_path), cs
 
     csv_data = CSV_save_format(amounts, categories, timestamps);
 }
-
-using SortedSummary = std::vector<std::pair<std::string, std::pair<double, size_t>>>;
 
 // Returns std::nullopt when ordering_column is not "value" or "key".
 std::optional<SortedSummary> order(const Summary& reduced_data, const std::string& ordering_column) {

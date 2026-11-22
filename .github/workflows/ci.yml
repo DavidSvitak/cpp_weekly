@@ -1,0 +1,71 @@
+name: CI
+
+# When to run:
+#  - push:          every push to any branch (so every commit you push is built and tested)
+#  - pull_request:  every pull request, including each new push to it, before it is merged
+#  - workflow_dispatch: a "Run workflow" button in the GitHub Actions tab, for manual runs
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# If you push again while an older run of the same branch is still going, cancel the old one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# This workflow only reads the repository.
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Keep running the other configurations when one fails, so you see every failure at once.
+      fail-fast: false
+      matrix:
+        include:
+          - name: GCC
+            cc: gcc
+            cxx: g++
+            cxx_flags: ""
+          - name: Clang
+            cc: clang
+            cxx: clang++
+            cxx_flags: ""
+          - name: GCC + sanitizers
+            cc: gcc
+            cxx: g++
+            # AddressSanitizer: out-of-bounds access, use-after-free, leaks.
+            # UndefinedBehaviorSanitizer: signed overflow, invalid casts, and similar undefined behaviour.
+            cxx_flags: "-fsanitize=address,undefined -fno-omit-frame-pointer"
+
+    env:
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
+      # Make UBSan fail the test instead of only printing a message.
+      UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Install Ninja
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
+      - name: Configure
+        run: >
+          cmake -S . -B build -G Ninja
+          -DCMAKE_BUILD_TYPE=Debug
+          -DCPP_WEEKLY_WARNINGS_AS_ERRORS=ON
+          -DCMAKE_CXX_FLAGS="${{ matrix.cxx_flags }}"
+          -DCMAKE_EXE_LINKER_FLAGS="${{ matrix.cxx_flags }}"
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure --parallel 4

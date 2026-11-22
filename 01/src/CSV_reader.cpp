@@ -123,7 +123,7 @@ int CSV_reader::save_to_csv(
     out << reduction_column << ",value,count\n";
     out << std::fixed << std::setprecision(2);
     for (const auto& [key, value] : *sorted_data) {
-        out << key << "," << value.first << "," << value.second << "\n";
+        out << key << "," << value.second << "," << value.first << "\n";
     }
     return 0;
 }

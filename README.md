@@ -11,6 +11,7 @@ on every push and pull request.
 | Folder | Program | Description |
 |---|---|---|
 | [`01/`](01/README.md) | `csv_summary` | Reads expenses from a CSV file and summarizes them by category. |
+| [`02/`](02/README.md) | `config_check` | Validates and normalizes simple `KEY=VALUE` configuration files. |
 
 Each folder has its own `README.md` with the assignment.
 

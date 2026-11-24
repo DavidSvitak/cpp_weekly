@@ -1,7 +1,9 @@
-#pragma once
+#ifndef CONFIG_HPP
+#define CONFIG_HPP
 
 #include <istream>
 #include <map>
+#include <cctype>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -30,3 +32,5 @@ struct LoadResult {
 LoadResult load_config(std::istream& input);
 
 }  // namespace config_check
+
+#endif  // CONFIG_HPP

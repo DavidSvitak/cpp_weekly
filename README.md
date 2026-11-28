@@ -2,7 +2,9 @@
 
 [![CI](https://github.com/DavidSvitak/cpp_weekly/actions/workflows/ci.yml/badge.svg)](https://github.com/DavidSvitak/cpp_weekly/actions/workflows/ci.yml)
 
-A collection of small, self-contained C++20 exercises, one per folder (`01/`, `02/`, ...).
+A collection of small, self-contained C++20 exercises, one per folder (01/, 02/, ...).
+The exercises themselves (the assignments, unit tests, main headers and test data) were generated
+by ChatGPT, while all of the remaining code was written by hand, without any AI assistance.
 Every exercise is built with CMake, covered by unit and end-to-end tests, and checked by CI
 on every push and pull request.
 
